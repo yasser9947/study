@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 
 import com.example.demo.ORM.entity.JpaBook;
+import com.example.demo.dto.Response;
 import com.example.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +20,9 @@ public class BookController {
     }
 
     @PostMapping("/book")
-    public String save(@RequestBody JpaBook book){
-        bookService.save(book);
-        return "save the book";
+    public Response<?> save(@RequestBody JpaBook book){
+
+        return  bookService.save(book);
     }
 
 

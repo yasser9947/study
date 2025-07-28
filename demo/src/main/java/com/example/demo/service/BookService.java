@@ -2,10 +2,12 @@ package com.example.demo.service;
 
 import com.example.demo.ORM.entity.JpaBook;
 import com.example.demo.ORM.repository.BookRepository;
+import com.example.demo.dto.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BookService {
@@ -19,9 +21,24 @@ public class BookService {
         return jpaBook;
     }
 
-    public void save(JpaBook book){
+    public Response<?> save(JpaBook book){
+        Response<Object> response = new Response();
+
         // make your logic
+        if (book.getPrice() == null){
+            response.setMessage("please add price");
+            response.setStatus("ERROR");
+            return  response;
+        }
+        if (book.getPrice() > 900 ){
+            response.setMessage("please add price");
+            response.setStatus("ERROR");
+            return response;
+        }
         bookRepository.save(book);
+        response.setMessage("save the book successfully");
+        response.setStatus("SUCCESS");
+        return response ;
     }
 
 
